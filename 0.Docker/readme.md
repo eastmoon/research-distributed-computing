@@ -17,13 +17,17 @@ Docker產生出來的Container只能是Linux系統，因此Docker只能運行或
 ### ● Virtual Box 中安裝 Docker
 
 1. 下載並安裝Virtual Box
+
 https://www.virtualbox.org/
 
 2. 下載Ubuntu ISO
+
 http://www.ubuntu.com/download/server
 
 3. 在Virtual Box中安裝Ubuntu OS
+
 http://blog.xuite.net/yh96301/blog/220731233
+
 ```
 // 於安裝完畢後，啟動Terminal，更新所有套件，並以此確保網路正常運作。
 > sudo apt-get update
@@ -45,6 +49,7 @@ A. 安裝SSH
 ```
 
 B. 安裝 Putty for window
+
 [Putty download] (http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 
 C. VM設定VPN
@@ -59,7 +64,9 @@ D. 重新啟動並使用Putty連線
 5. 安裝Docker
 
 於Virtual Box開啟網頁下載對應作業系統的Docker版本
+
 [Docker installaion] (https://docs.docker.com/engine/installation/)
+
 ```
 > sudo apt-get update
 > sudo apt-get upgrade
@@ -68,8 +75,11 @@ D. 重新啟動並使用Putty連線
 
 -----
 Error : got permission denied while trying to connect to the docker daemon socket.
+
 [Link 1] (http://askubuntu.com/questions/615394)
+
 [Link 2] (http://stackoverflow.com/questions/27528337)
+
 -----
 [Install Docker Toolbox on Windows] (https://docs.docker.com/toolbox/toolbox_install_windows/)
 
