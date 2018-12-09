@@ -108,8 +108,6 @@ RUN \
   pip3 install -U pip numpy
 RUN \
   python3 -m venv ${OPENCV_PYTHON3_WRAPPER} && \
-  echo "# Virtual Environment Wrapper" >> ~/.bashrc && \
-  echo "alias workoncv-${OPENCV_VERSION}=\"source ${OPENCV_PYTHON3_WRAPPER}/bin/activate\"" >> ~/.bashrc && \
   source ${OPENCV_PYTHON3_WRAPPER}/bin/activate && \
   # now install python libraries within this virtual environment
   pip install \
@@ -119,7 +117,8 @@ RUN \
     matplotlib \
     scikit-image \
     scikit-learn \
-    ipython \
+    ipython && \
+  pip install \
     dlib && \
   # quit virtual environment
   deactivate
