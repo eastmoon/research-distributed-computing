@@ -4,6 +4,10 @@
 
 ## [Vagrant](https://www.vagrantup.com/docs/)
 
+#### Demo
+
++ Ubuntu 16.04 + Docker
+
 ## [Docker](https://www.docker.com/)
 
 #### Demo
