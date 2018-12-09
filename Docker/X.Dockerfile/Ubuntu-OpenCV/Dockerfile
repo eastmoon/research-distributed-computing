@@ -87,6 +87,7 @@ RUN \
         -D BUILD_EXAMPLES=ON ..
 
 RUN \
+  cd ${OPENCV_REPOSITORY}/build && \
   make -j7 && \
   make install && \
   pip install --upgrade pip opencv-python
