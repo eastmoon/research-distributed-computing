@@ -104,6 +104,9 @@ RUN \
 # create virtual environment
 ENV OPENCV_PYTHON3_WRAPPER ${OPENCV_REPOSITORY}/opencv-python3
 RUN \
+  apt-get install -y python3-dev python3-pip python3-venv python3-testresources && \
+  pip3 install -U pip numpy
+RUN \
   python3 -m venv ${OPENCV_PYTHON3_WRAPPER} && \
   echo "# Virtual Environment Wrapper" >> ~/.bashrc && \
   echo "alias workoncv-${OPENCV_VERSION}=\"source ${OPENCV_PYTHON3_WRAPPER}/bin/activate\"" >> ~/.bashrc && \
