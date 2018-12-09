@@ -23,11 +23,6 @@ RUN \
 # Ref : https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html
 # Ref : https://docs.opencv.org/3.4.1/d2/de6/tutorial_py_setup_in_ubuntu.html
 # Ref : https://www.learnopencv.com/install-opencv-4-on-ubuntu-16-04/
-# Declare variable
-ENV GIT_REPOSITORY /usr/git/
-ENV OPENCV_VERSION 4.0.0
-ENV OPENCV_REPOSITORY ${OPENCV_REPOSITORY}/opencv
-ENV OPENCV_CONTRIB_REPOSITORY ${OPENCV_REPOSITORY}/opencv_contrib
 
 # OpenCV common package
 RUN \
@@ -86,6 +81,12 @@ RUN \
   ln -s -f ../libv4l1-videodev.h videodev.h && \
   cd /
 
+# Declare variable
+ENV GIT_REPOSITORY /usr/git
+ENV OPENCV_VERSION 4.0.0
+ENV OPENCV_REPOSITORY ${OPENCV_REPOSITORY}/opencv
+ENV OPENCV_CONTRIB_REPOSITORY ${OPENCV_REPOSITORY}/opencv_contrib
+
 # Download opencv source code
 RUN \
   mkdir ${GIT_REPOSITORY} && \
@@ -111,7 +112,7 @@ RUN \
 RUN \
   python3 -m venv ${OPENCV_PYTHON3_WRAPPER}
 RUN \
-  source ${OPENCV_PYTHON3_WRAPPER}/bin/activate && \
+  source ${OPENCV_PYTHON3_WRAPPER}/bin/activate
 # now install python libraries within this virtual environment
 RUN \
   pip install \
