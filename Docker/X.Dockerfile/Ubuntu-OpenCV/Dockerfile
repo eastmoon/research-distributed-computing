@@ -102,11 +102,12 @@ RUN \
 
 # OpenCV-Python build setting
 # create virtual environment
+ENV OPENCV_PYTHON3_WRAPPER ${OPENCV_REPOSITORY}/opencv-python3
 RUN \
-  python3 -m venv OpenCV-${OPENCV_VERSION}-py3 && \
+  python3 -m venv ${OPENCV_PYTHON3_WRAPPER} && \
   echo "# Virtual Environment Wrapper" >> ~/.bashrc && \
-  echo "alias workoncv-${OPENCV_VERSION}=\"source $cwd/OpenCV-{OPENCV_VERSION}-py3/bin/activate\"" >> ~/.bashrc && \
-  source ${GIT_REPOSITORY}/OpenCV-${OPENCV_VERSION}-py3/bin/activate && \
+  echo "alias workoncv-${OPENCV_VERSION}=\"source ${OPENCV_PYTHON3_WRAPPER}/bin/activate\"" >> ~/.bashrc && \
+  source ${OPENCV_PYTHON3_WRAPPER}/bin/activate && \
   # now install python libraries within this virtual environment
   pip install \
     wheel \
