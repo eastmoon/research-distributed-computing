@@ -70,7 +70,6 @@ RUN \
     libopencore-amrwb-dev \
     libavresample-dev \
     x264 \
-    ffmpeg-devel \
     # Install Library for mathematics
     libatlas-base-dev \
     # Install Library for hardware communication
@@ -102,3 +101,8 @@ RUN \
         -D WITH_OPENGL=ON \
         -D OPENCV_EXTRA_MODULES_PATH=${OPENCV_CONTRIB_REPOSITORY}/modules \
         -D BUILD_EXAMPLES=ON ..
+
+# Install OpenCV-Python
+RUN \
+  apt-get -y update && \
+  apt-get install python-opencv
