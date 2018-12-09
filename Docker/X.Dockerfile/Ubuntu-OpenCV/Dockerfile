@@ -102,14 +102,18 @@ RUN \
 
 # OpenCV-Python build setting
 # create virtual environment
-ENV OPENCV_PYTHON3_WRAPPER ${OPENCV_REPOSITORY}/opencv-python3
+ENV OPENCV_PYTHON3_WRAPPER ${GIT_REPOSITORY}/opencv-python3
+# Install python 3
 RUN \
   apt-get install -y python3-dev python3-pip python3-venv python3-testresources && \
   pip3 install -U pip numpy
+# Startup virtual environment
 RUN \
-  python3 -m venv ${OPENCV_PYTHON3_WRAPPER} && \
+  python3 -m venv ${OPENCV_PYTHON3_WRAPPER}
+RUN \
   source ${OPENCV_PYTHON3_WRAPPER}/bin/activate && \
-  # now install python libraries within this virtual environment
+# now install python libraries within this virtual environment
+RUN \
   pip install \
     wheel \
     numpy \
@@ -118,6 +122,7 @@ RUN \
     scikit-image \
     scikit-learn \
     ipython && \
+RUN \
   pip install \
     dlib && \
   # quit virtual environment
