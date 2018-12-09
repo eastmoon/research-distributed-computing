@@ -2,8 +2,8 @@
 
 # Install common package
 RUN \
-  apt-get update -y && \
-  apt-get install -y \
+  apt update -y && \
+  apt install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -16,8 +16,8 @@ RUN \
   # Add Git repository reference into apt system
   add-apt-repository ppa:git-core/ppa && \
   # Install
-  apt-get update -y && \
-  apt-get install -y git
+  apt update -y && \
+  apt install -y git
 
 # OpenCV
 # Ref : https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html
@@ -31,9 +31,9 @@ ENV OPENCV_CONTRIB_REPOSITORY ${OPENCV_REPOSITORY}/opencv_contrib
 
 # OpenCV common package
 RUN \
-  apt-get update -y && \
-  apt-get upgrade -y && \
-  apt-get install -y \
+  apt update -y && \
+  apt upgrade -y && \
+  apt install -y \
     # Compiler Tools
     build-essential \
     cmake \
