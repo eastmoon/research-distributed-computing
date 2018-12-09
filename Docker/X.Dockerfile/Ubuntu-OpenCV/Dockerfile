@@ -21,7 +21,7 @@ RUN \
 
 # OpenCV
 # Declare variable
-ENV GIT_REPOSITORY ~/repo/
+ENV GIT_REPOSITORY /usr/git/
 ENV OPENCV_VERSION 4.0.0
 # OpenCV common package
 RUN \
