@@ -91,11 +91,11 @@ RUN \
   mkdir ${GIT_REPOSITORY} && \
   cd ${GIT_REPOSITORY} && \
   curl https://codeload.github.com/opencv/opencv/tar.gz/${OPENCV_VERSION} -o opencv-source.tar.gz && \
-  mkdir opencv && \
-  tar -zxf opencv-source.tar.gz -C ./opencv --strip-components=1 \
   curl https://codeload.github.com/opencv/opencv_contrib/tar.gz/${OPENCV_VERSION} -o opencv-contrib-source.tar.gz && \
+  mkdir opencv && \
   mkdir opencv-contrib && \
-  tar -zxf opencv-contrib-source.tar.gz -C ./opencv-contrib --strip-components=1 \
+  tar -zxf opencv-source.tar.gz -C ./opencv --strip-components=1 && \
+  tar -zxf opencv-contrib-source.tar.gz -C ./opencv-contrib --strip-components=1 && \
   rm opencv-source.zip && \
   rm opencv-contrib-source.tar.gz
 
