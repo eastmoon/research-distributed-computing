@@ -22,7 +22,7 @@ RUN \
 # OpenCV
 # Ref : https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html
 # Ref : https://docs.opencv.org/3.4.1/d2/de6/tutorial_py_setup_in_ubuntu.html
-# Ref : https://github.com/nuveo/docker-opencv/blob/master/debian/python3/2/Dockerfile
+# Ref : https://www.learnopencv.com/install-opencv-4-on-ubuntu-16-04/
 
 # OpenCV common package
 RUN \
@@ -32,7 +32,11 @@ RUN \
     # Compiler Tools
     build-essential \
     cmake \
+    checkinstall \
     pkg-config \
+    # Language Tools
+    yasm \
+    gfortran \
     # Python
     python-dev \
     python-numpy \
@@ -40,14 +44,34 @@ RUN \
     libgtk2.0-dev \
     libtbb2 \
     libtbb-dev \
+    qt5-default \
+    libv4l-dev \
+    v4l-utils \
     # Install Library for Video/Image/Audio process
     libavcodec-dev \
     libavformat-dev \
     libswscale-dev \
+    libxine2-dev \
+    libjpeg8-dev \
     libjpeg-dev \
     libpng-dev \
+    libpng12-dev \
     libtiff-dev \
+    libtiff5-dev \
     libjasper-dev \
+    libgstreamer0.10-dev \
+    libgstreamer-plugins-base0.10-dev \
+    libfaac-dev \
+    libmp3lame-dev \
+    libtheora-dev \
+    libvorbis-dev \
+    libxvidcore-dev \
+    libopencore-amrnb-dev \
+    libopencore-amrwb-dev \
+    libavresample-dev \
+    x264 \
+    # Install Library for mathematics
+    libatlas-base-dev \
     # Install Library for hardware communication
     libdc1394-22-dev
 
@@ -76,17 +100,37 @@ RUN \
   rm opencv-source.tar.gz && \
   rm opencv-contrib-source.tar.gz
 
+
+# OpenCV-Python build setting
+# create virtual environment
+ENV OPENCV_PYTHON3_WRAPPER ${GIT_REPOSITORY}/opencv-python3
+# Install python 3
+RUN \
+  apt-get install -y python3-dev python3-pip python3-venv python3-testresources && \
+  pip3 install -U pip numpy
+# Startup virtual environment
+RUN \
+  python3 -m venv ${OPENCV_PYTHON3_WRAPPER}
+RUN \
+  source ${OPENCV_PYTHON3_WRAPPER}/bin/activate
+# now install python libraries within this virtual environment
+RUN \
+  pip install \
+    wheel \
+    numpy \
+    scipy \
+    matplotlib \
+    scikit-image \
+    scikit-learn \
+    ipython && \
+RUN \
+  pip install \
+    dlib && \
+  # quit virtual environment
+  deactivate
+
 # Build opencv by cmake
 RUN \
   cd ${OPENCV_REPOSITORY} && \
   mkdir build && \
-  cd build && \
-  cmake -D CMAKE_BUILD_TYPE=RELEASE \
-        -D CMAKE_INSTALL_PREFIX=${OPENCV_REPOSITORY} \
-        -D OPENCV_EXTRA_MODULES_PATH=${OPENCV_CONTRIB_REPOSITORY}/modules \
-        -D BUILD_EXAMPLES=ON ..
-
-RUN \
-  make -j7 && \
-  make install && \
-  pip install --upgrade pip opencv-python
+  cd build
