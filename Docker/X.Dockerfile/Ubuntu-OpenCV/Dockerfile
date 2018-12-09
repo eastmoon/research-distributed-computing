@@ -2,8 +2,8 @@
 
 # Install common package
 RUN \
-  apt update -y && \
-  apt install -y \
+  apt-get update -y && \
+  apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -16,8 +16,8 @@ RUN \
   # Add Git repository reference into apt system
   add-apt-repository ppa:git-core/ppa && \
   # Install
-  apt update -y && \
-  apt install -y git
+  apt-get update -y && \
+  apt-get install -y git
 
 # OpenCV
 # Ref : https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html
@@ -31,9 +31,9 @@ ENV OPENCV_CONTRIB_REPOSITORY ${OPENCV_REPOSITORY}/opencv_contrib
 
 # OpenCV common package
 RUN \
-  apt update -y && \
-  apt upgrade -y && \
-  apt install -y \
+  apt-get update -y && \
+  apt-get upgrade -y && \
+  apt-get install -y \
     # Compiler Tools
     build-essential \
     cmake \
@@ -83,7 +83,7 @@ RUN \
 # Set v41 link
 RUN \
   cd /usr/include/linux && \
-  sudo ln -s -f ../libv4l1-videodev.h videodev.h && \
+  ln -s -f ../libv4l1-videodev.h videodev.h && \
   cd /
 
 # Download opencv source code
