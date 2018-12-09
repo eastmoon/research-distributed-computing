@@ -20,6 +20,8 @@ RUN \
   apt-get install -y git
 
 # OpenCV
+# Ref : https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html
+# Ref : https://docs.opencv.org/3.4.1/d2/de6/tutorial_py_setup_in_ubuntu.html
 # Ref : https://www.learnopencv.com/install-opencv-4-on-ubuntu-16-04/
 # Declare variable
 ENV GIT_REPOSITORY /usr/git/
@@ -30,6 +32,7 @@ ENV OPENCV_CONTRIB_REPOSITORY ${OPENCV_REPOSITORY}/opencv_contrib
 # OpenCV common package
 RUN \
   apt-get update -y && \
+  apt-get upgrade -y && \
   apt-get install -y \
     # Compiler Tools
     build-essential \
@@ -47,6 +50,8 @@ RUN \
     libtbb2 \
     libtbb-dev \
     qt5-default \
+    libv4l-dev \
+    v4l-utils \
     # Install Library for Video/Image/Audio process
     libavcodec-dev \
     libavformat-dev \
@@ -75,6 +80,12 @@ RUN \
     # Install Library for hardware communication
     libdc1394-22-dev
 
+# Set v41 link
+RUN \
+  cd /usr/include/linux && \
+  sudo ln -s -f ../libv4l1-videodev.h videodev.h && \
+  cd /
+
 # Download opencv source code
 RUN \
   mkdir ${GIT_REPOSITORY} && \
@@ -88,21 +99,30 @@ RUN \
   rm opencv-source.zip && \
   rm opencv-contrib-source.tar.gz
 
+
+# OpenCV-Python build setting
+# create virtual environment
+python3 -m venv OpenCV-${OPENCV_VERSION}-py3
+echo "# Virtual Environment Wrapper" >> ~/.bashrc
+echo "alias workoncv-${OPENCV_VERSION}=\"source $cwd/OpenCV-{OPENCV_VERSION}-py3/bin/activate\"" >> ~/.bashrc
+source ${GIT_REPOSITORY}/OpenCV-${OPENCV_VERSION}-py3/bin/activate
+
+# now install python libraries within this virtual environment
+pip install \
+  wheel \
+  numpy \
+  scipy \
+  matplotlib \
+  scikit-image \
+  scikit-learn \
+  ipython \
+  dlib
+
+# quit virtual environment
+deactivate
+
 # Build opencv by cmake
 RUN \
   cd ${OPENCV_REPOSITORY} && \
   mkdir build && \
-  cd build && \
-  cmake -D CMAKE_BUILD_TYPE=RELEASE \
-        -D CMAKE_INSTALL_PREFIX=${OPENCV_REPOSITORY} \
-        -D INSTALL_C_EXAMPLES=ON \
-        -D WITH_TBB=ON \
-        -D WITH_QT=ON \
-        -D WITH_OPENGL=ON \
-        -D OPENCV_EXTRA_MODULES_PATH=${OPENCV_CONTRIB_REPOSITORY}/modules \
-        -D BUILD_EXAMPLES=ON ..
-
-# Install OpenCV-Python
-RUN \
-  apt-get -y update && \
-  apt-get install python-opencv
+  cd build
