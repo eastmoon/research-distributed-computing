@@ -96,7 +96,7 @@ RUN \
   mkdir opencv-contrib && \
   tar -zxf opencv-source.tar.gz -C ./opencv --strip-components=1 && \
   tar -zxf opencv-contrib-source.tar.gz -C ./opencv-contrib --strip-components=1 && \
-  rm opencv-source.zip && \
+  rm opencv-source.tar.gz && \
   rm opencv-contrib-source.tar.gz
 
 
