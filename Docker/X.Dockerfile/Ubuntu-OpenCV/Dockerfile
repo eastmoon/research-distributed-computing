@@ -27,7 +27,6 @@ RUN \
 # OpenCV common package
 RUN \
   apt-get update -y && \
-  apt-get upgrade -y && \
   apt-get install -y \
     # Compiler Tools
     build-essential \
@@ -35,7 +34,10 @@ RUN \
     pkg-config \
     # Python
     python-dev \
+    python-pip \
     python-numpy \
+    python3-dev \
+    python3-pip \
     # Install Library for GUI
     libgtk2.0-dev \
     libtbb2 \
@@ -84,10 +86,14 @@ RUN \
   cmake -D CMAKE_BUILD_TYPE=RELEASE \
         -D CMAKE_INSTALL_PREFIX=${OPENCV_REPOSITORY} \
         -D OPENCV_EXTRA_MODULES_PATH=${OPENCV_CONTRIB_REPOSITORY}/modules \
+	-D PYTHON2_EXECUTABLE=/usr/bin/python2.7 \
+	-D PYTHON_INCLUDE_DIR=/usr/include/python2.7 \
+	-D PYTHON_INCLUDE_DIR2=/usr/include/x86_64-linux-gnu/python2.7 \
+	-D PYTHON_LIBRARY=/usr/lib/x86_64-linux-nu/libpython2.7.so \
+	-D PYTHON2_NUMPY_INCLUDE_DIRS=/usr/lib/python2.7/dist-packages/numpy/core/include/ \
         -D BUILD_EXAMPLES=ON ..
 
 RUN \
   cd ${OPENCV_REPOSITORY}/build && \
   make && \
-  make install && \
-  pip install --upgrade pip opencv-python
+  make install
