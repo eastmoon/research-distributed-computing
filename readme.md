@@ -11,6 +11,12 @@
 
 ## [Docker](https://www.docker.com/)
 
+#### [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker)
+
+讓 Docker 運行直接運作於 GPU 之上而非 CPU。
+
++ [A Primer on Nvidia-Docker — Where Containers Meet GPUs](https://thenewstack.io/primer-nvidia-docker-containers-meet-gpus/)
+
 #### Demo
 
 + Ubuntu + SparkR
