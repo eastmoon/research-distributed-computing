@@ -1,14 +1,22 @@
-﻿FROM ubuntu:16.04
+# Base OS Use with ubuntu
+FROM ubuntu:14.04
 
-# Install common package
+# KEEP OS LIBRARY UP TO DATE
+
+RUN \
+  apt-get -y update && \
+  apt-get -y upgrade && \
+  apt-get -y dist-upgrade && \
+  apt-get -y autoremove
+
+# Common library
 RUN \
   apt-get update -y && \
   apt-get install -y \
     apt-transport-https \
     ca-certificates \
+    wget \
     curl \
-    zip \
-    unzip \
     software-properties-common
 
 # Git
@@ -23,51 +31,34 @@ RUN \
 # Ref : https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html
 # Ref : https://docs.opencv.org/3.4.1/d2/de6/tutorial_py_setup_in_ubuntu.html
 # Ref : https://github.com/nuveo/docker-opencv/blob/master/debian/python3/2/Dockerfile
-
-# OpenCV common package
 RUN \
   apt-get update -y && \
   apt-get install -y \
-    # Compiler Tools
-    build-essential \
-    cmake \
-    pkg-config \
-    # Python
-    python-dev \
-    python-pip \
-    python-numpy \
-    python3-dev \
-    python3-pip \
-    # Install Library for GUI
+    # Build tools:
+    build-essential cmake \
+    # Python:
+    python-dev python-numpy python3-dev python3-numpy \
+    # GUI:
     libgtk2.0-dev \
-    libtbb2 \
-    libtbb-dev \
-    # Install Library for Video/Image/Audio process
-    libavcodec-dev \
-    libavformat-dev \
-    libswscale-dev \
-    libjpeg-dev \
-    libpng-dev \
-    libtiff-dev \
-    libjasper-dev \
-    # Install Library for hardware communication
-    libdc1394-22-dev
+    # Media I/O:
+    libjpeg-dev libwebp-dev libpng-dev libtiff5-dev libjasper-dev libopenexr-dev libgdal-dev \
+    # Video I/O:
+    libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev yasm libopencore-amrnb-dev libopencore-amrwb-dev libv4l-dev libxine2-dev
 
-# Set v41 link
+
+# In this image, python3.4 is default, but not install pip module.
+# Install pip
 RUN \
-  cd /usr/include/linux && \
-  ln -s -f ../libv4l1-videodev.h videodev.h && \
-  cd /
+  curl https://bootstrap.pypa.io/get-pip.py | python3.4
 
 # Declare variable
-ENV GIT_REPOSITORY /usr/git
-ENV OPENCV_VERSION 4.0.0
+ENV GIT_REPOSITORY /usr/local
+ENV OPENCV_VERSION 3.4.2
 ENV OPENCV_REPOSITORY ${GIT_REPOSITORY}/opencv
 ENV OPENCV_CONTRIB_REPOSITORY ${GIT_REPOSITORY}/opencv-contrib
 
 # Download opencv source code
 RUN \
-  mkdir ${GIT_REPOSITORY} && \
   cd ${GIT_REPOSITORY} && \
   curl https://codeload.github.com/opencv/opencv/tar.gz/${OPENCV_VERSION} -o opencv-source.tar.gz && \
   curl https://codeload.github.com/opencv/opencv_contrib/tar.gz/${OPENCV_VERSION} -o opencv-contrib-source.tar.gz && \
@@ -78,7 +69,7 @@ RUN \
   rm opencv-source.tar.gz && \
   rm opencv-contrib-source.tar.gz
 
-# Build opencv by cmake
+# Generate build information by cmake
 RUN \
   cd ${OPENCV_REPOSITORY} && \
   mkdir build && \
@@ -86,14 +77,20 @@ RUN \
   cmake -D CMAKE_BUILD_TYPE=RELEASE \
         -D CMAKE_INSTALL_PREFIX=${OPENCV_REPOSITORY} \
         -D OPENCV_EXTRA_MODULES_PATH=${OPENCV_CONTRIB_REPOSITORY}/modules \
-	-D PYTHON2_EXECUTABLE=/usr/bin/python2.7 \
-	-D PYTHON_INCLUDE_DIR=/usr/include/python2.7 \
-	-D PYTHON_INCLUDE_DIR2=/usr/include/x86_64-linux-gnu/python2.7 \
-	-D PYTHON_LIBRARY=/usr/lib/x86_64-linux-nu/libpython2.7.so \
-	-D PYTHON2_NUMPY_INCLUDE_DIRS=/usr/lib/python2.7/dist-packages/numpy/core/include/ \
+        -D PYTHON2_EXECUTABLE=/usr/bin/python2.7 \
+        -D OPENCV_PYTHON2_INSTALL_PATH=/usr/local/lib/python2.7/dist-packages \
+        -D PYTHON3_EXECUTABLE=/usr/bin/python3.4 \
+        -D OPENCV_PYTHON3_INSTALL_PATH=/usr/local/lib/python3.4/dist-packages \
         -D BUILD_EXAMPLES=ON ..
 
+# Build & Install
 RUN \
   cd ${OPENCV_REPOSITORY}/build && \
-  make && \
+  make -j5 && \
   make install
+
+# Copy python library
+# Ref :https://breakthrough.github.io/Installing-OpenCV/#compiling-and-installing-opencv
+# RUN \
+#   cp ${OPENCV_REPOSITORY}/lib/cv2.so /usr/local/lib/python2.7/dist-packages/
+#   cp ${OPENCV_REPOSITORY}/lib/python3/* /usr/local/lib/python3.4/dist-packages/

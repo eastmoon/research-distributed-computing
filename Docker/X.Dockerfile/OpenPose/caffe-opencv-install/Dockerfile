@@ -57,3 +57,16 @@ RUN \
 # Download openpose by git
 RUN \
   git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose.git /usr/local/openpose
+
+RUN \
+  cd /usr/local/openpose/ && \
+  mkdir build && \
+  cd build && \
+  cmake \
+    -DCaffe_INCLUDE_DIRS=/opt/caffe/build/include/ \
+    -DCaffe_LIBS=/opt/caffe/build/lib/libcaffe.so \
+    -DBUILD_CAFFE=OFF ..
+
+RUN \
+  cd /usr/local/openpose/build && \
+  make -j`nproc`
