@@ -63,4 +63,4 @@ RUN \
   make -j"$(nproc)" && \
   make install
 
-ENV PYTHONPATH $PYCAFFE_ROOT:/usr/local/python/
+ENV PYTHONPATH $PYTHONPATH:/usr/local/python/

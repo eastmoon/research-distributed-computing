@@ -15,14 +15,13 @@ RUN \
 RUN \
   apt-get update -y && \
   apt-get --assume-yes install \
-    unzip \
     # General dependencies
     libatlas-base-dev libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler \
     libboost-all-dev \
     # Remaining dependencies, 14.04
     libgflags-dev libgoogle-glog-dev liblmdb-dev \
-    # Python libs
-    python-pip python-dev \
+    # Tools
+    unzip \
     libeigen3-dev libviennacl-dev \
     libnccl-dev \
     doxygen
@@ -64,4 +63,4 @@ RUN \
   make -j"$(nproc)" && \
   make install
 
-ENV PYTHONPATH $PYCAFFE_ROOT:/usr/local/python/
+ENV PYTHONPATH $PYTHONPATH:/usr/local/python/
