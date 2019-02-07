@@ -1,6 +1,6 @@
 # [Google Cloud Platform](https://cloud.google.com/?hl=zh-tw)
 
-GCP 是一項使用了Google核心基礎架構、資料分析和機器學習技術的雲計算服務。其主要提供軟體開發商基礎設施託管和開發人員產品技術支援，用於構建從簡單網站到複雜應用程式的一系列程式，並提供一系列模塊化的基於雲的服務和大量開發工具。
+GCP 是一項使用了 Google 核心基礎架構、資料分析和機器學習技術的雲計算服務。其主要提供軟體開發商基礎設施託管和開發人員產品技術支援，用於構建從簡單網站到複雜應用程式的一系列程式，並提供一系列模塊化的基於雲的服務和大量開發工具。
 
 對於 GCP 操作有兩個主要方式，一是採用 GCP 提供的網頁操作平台、二是採用 SDK 透過 CLI (Command line) 進行遠端操作。
 
@@ -9,7 +9,7 @@ GCP 是一項使用了Google核心基礎架構、資料分析和機器學習技�
   - [SDK 初始化](https://cloud.google.com/sdk/docs/authorizing)
   - [SDK 授權](https://cloud.google.com/sdk/docs/authorizing)
 
-需注意，GCP SDK 是一套用於對 Google Cloud Platform 溝通的開發工具，因此，必需經過初始化才可正確的存取對應帳號；但 SDK 可同時存取多個帳戶，方法可參閱上述連結。
+需注意，Google Cloud Platform SDK 是一套用於對 GCP 溝通的開發工具，因此，必需經過初始化才可正確的存取對應帳號的 GCP ；但 SDK 可同時存取多個帳戶，方法可參閱上述連結。
 
 ## Virtual Machine Instances
 
@@ -35,6 +35,7 @@ GCP 是一項使用了Google核心基礎架構、資料分析和機器學習技�
 ---
 
 [在 GCP 中建立 k8s 叢集](https://ithelp.ithome.com.tw/articles/10193961)
+
 [Kubernetes 佈署 Docker Image](https://blog.johnwu.cc/article/gcp-kubernetes-deploy-docker-image.html)
 
 ---
