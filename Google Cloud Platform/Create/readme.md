@@ -38,6 +38,27 @@ gcloud compute instances create test-instance \
 ```
 > 建立一個位在 asia-east1-a 虛擬機；可用[地區與區域參考列表](https://cloud.google.com/compute/docs/regions-zones/?hl=zh-tw)
 
+#### 設置虛擬機的主要硬碟
+
+```
+gcloud compute instances create test-instance \
+	--image-family ubuntu-1604-lts \
+	--image-project ubuntu-os-cloud \
+  --boot-disk-size 50GB \
+  --boot-disk-type pd-standard
+```
+> 建立一個擁有 50GB 標準開機硬碟的虛擬機；若於建立主機後再擴增硬碟，參考[新增永久磁碟或調整其大小](https://cloud.google.com/compute/docs/disks/add-persistent-disk)
+
+#### 設置虛擬機的次要硬碟
+
+```
+gcloud compute instances create test-instance \
+	--image-family ubuntu-1604-lts \
+	--image-project ubuntu-os-cloud \
+  --create-disk size=20GB,type=pd-standard
+```
+> 建立一個擁有 20GB 標準次要硬碟的虛擬機；若於建立主機後再擴增硬碟，參考[新增永久磁碟或調整其大小](https://cloud.google.com/compute/docs/disks/add-persistent-disk)
+
 #### 建立配 GPU 的虛擬機
 
 ```
@@ -51,4 +72,4 @@ gcloud compute instances create test-instance \
 >
 > 若要確認可用加速器列表，使用```gcloud compute accelerator-types list```。
 >
-> 若出現 <span style="color:red">"Instances with guest accelerators do not support live migration."</span>，其主要問題依據[文獻](https://groups.google.com/forum/#!topic/gce-discussion/e9K3h3fQuJk)是因為目前帳號並未[申請配額](https://cloud.google.com/compute/quotas?hl=zh-tw)(Quota)，
+> 若出現 <span style="color:red">"Instances with guest accelerators do not support live migration."</span>，其主要問題依據[文獻](https://groups.google.com/forum/#!topic/gce-discussion/e9K3h3fQuJk)是因為目前帳號並未[申請配額](https://cloud.google.com/compute/quotas?hl=zh-tw)(Quota)。
