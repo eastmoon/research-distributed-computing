@@ -22,6 +22,13 @@ gcloud compute instances stop test-instance
 ```
 > 目標虛擬機可以為複數主機，並可使用 ```--async``` 做非同步操作，避免操作導致延遲。
 
+## [移除虛擬主機](https://cloud.google.com/sdk/gcloud/reference/compute/instances/delete?hl=zh-tw)
+
+```
+gcloud compute instances delete test-instance
+```
+> 目標虛擬機可以為複數主機，並可使用 ```--async``` 做非同步操作，避免操作導致延遲。
+
 ## [SSH 連線至虛擬機](https://cloud.google.com/sdk/gcloud/reference/compute/ssh?hl=zh-tw)
 
 ```
