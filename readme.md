@@ -3,7 +3,9 @@
 分散式運算（英語：Distributed computing），主要研究分散式系統（Distributed system）如何進行計算。分散式系統是一組電腦，透過網路相互連接傳遞訊息與通訊後並協調它們的行為而形成的系統。組件之間彼此進行互動以實現一個共同的目標。把需要進行大量計算的工程資料分割成小塊，由多台電腦分別計算，再上傳運算結果後，將結果統一合併得出資料結論的科學。
 > [分散式運算 wiki](https://zh.wikipedia.org/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97)
 
-![分散式運算 wiki](https://upload.wikimedia.org/wikipedia/commons/c/c6/Distributed-parallel.svg)
+<cneter>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Distributed-parallel.svg" alt="分散式運算 wiki" />
+</center>
 
 分散式運算有兩個面向的研究，一是基於分散式系統的主機架構，二是基於分散運算的運算單元軟體設計，若兩這不能同時存在並互相運用，則實際與單機運算並無差異。
 
