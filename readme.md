@@ -52,33 +52,32 @@
 
 Ansible 是一套遠程管理私有主機群的套件，而 GCP、AWS、Azure 則是不同的雲端系統，其下也各自有相似於 Ansible 的遠程管理工具。
 
-### [Docker](https://www.docker.com/) 使用議題
+### Docker
 
-實務範例參考[專案目錄 Docker](./Docker)
++ 文件
+    - [技術議題](./Docker/docs/issue.md)
+    - [Windows 安裝](./Docker/docs/docker-for-windows.md)
+    - [Linux 安裝](./Docker/docs/docker-for-linux.md)
+    - [基礎操作](./Docker/docs/base-operation.md)
++ 實務範例參考
+    - [Dockerfile](./Docker/Dockerfile)
 
-#### [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker)
+### Vagrant
 
-讓 Docker 運行直接運作於 GPU 之上而非 CPU。
++ 文件
+    - [技術議題](./Vagrant/docs/issue.md)
+    - [Windows 安裝](./Vagrant/docs/vagrant-for-windows.md)
+    - [基礎操作](./Vagrant/docs/base-operation.md)
++ 實務範例參考
+    - [Vagrantfile](./Vagrant/Vagrantfile)
 
-+ [A Primer on Nvidia-Docker — Where Containers Meet GPUs](https://thenewstack.io/primer-nvidia-docker-containers-meet-gpus/)
+### 議題
 
-#### [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+[啟動 VMWare、VirtualBox 注意事項](https://kb.vmware.com/s/article/2146361)
 
-在 Windows 上運作 Linux 環境，在早期版本中可用方式遠低於 Docker；但 Docker 目前已可運用 WSL2 來進行虛擬容器運作。
+原則上 docker 不可與 VM 同時啟動，因次必須確保 Hyper-v 與 hypervisorlaunchtype 正式關閉
 
-+ [Windows Subsystem for Linux 環境配置](https://medium.com/hungys-blog/windows-subsystem-for-linux-configuration-caf2f47d0dfb)
-
-#### Service、Systemctl
-
-在 Docker 安裝環境時，多數服務會碰比需啟動運作程序的問題，例如 MySQL、MongoDB 需要開啟資料庫服務，簡單的方式可以將啟動程序寫在 .bashrc 以便運作，但如何啟用服務，以及如何分離使用者執行服務，避免資安爭議則是需要研究的議題。
-
-+ [鳥哥的 Linux 私房菜 - 開機關機流程與 Loader](http://linux.vbird.org/linux_basic/0510osloader/0510osloader-fc4.php)
-+ [鳥哥的 Linux 私房菜 - 認識系統服務 (daemons)](http://linux.vbird.org/linux_basic/0560daemons.php)
-+ [Start service using systemctl inside docker container](https://stackoverflow.com/questions/46800594)
-+ [Docker How to run /usr/sbin/init and then other scripts on start up](https://stackoverflow.com/questions/48720049)
-+ [為何在 Docker 中執行特權容器不是個好主意?](https://blog.trendmicro.com.tw/?p=62986)
-+ [sudo or gosu](http://programmersought.com/article/82831278699/)
-
-在 Docker Hub 上可以看到大多官方的 Docker 容器都有運用 gosu 的方式，避免容器產生資安疑慮；在自建容器時可以因精簡設計而先規避使用，但進入產品環境實則需確實使用以避免產生資安漏洞。
+1. Go to "Turn Windows features on or off" > Close Hyper-v
+2. Run "bcdedit /set hypervisorlaunchtype off" with administrator
 
 # Distributed computing architecture
