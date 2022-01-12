@@ -73,7 +73,7 @@ Ansible 是一套遠程管理私有主機群的套件，而 GCP、AWS、Azure �
 
 ### 議題
 
-[啟動 VMWare、VirtualBox 注意事項](https://kb.vmware.com/s/article/2146361)
+##### [啟動 VMWare、VirtualBox 注意事項](https://kb.vmware.com/s/article/2146361)
 
 原則上 docker 不可與 VM 同時啟動，因次必須確保 Hyper-v 與 hypervisorlaunchtype 正式關閉
 
@@ -81,3 +81,12 @@ Ansible 是一套遠程管理私有主機群的套件，而 GCP、AWS、Azure �
 2. Run "bcdedit /set hypervisorlaunchtype off" with administrator
 
 # Distributed computing architecture
+
+##### [Docker 無法連線至特定網段 (172.17.x.x)](https://blog.yowko.com/docker-172-17-ip/)
+
+具有一定規模公司或採用虛擬環境的架構，常用網段不外乎 192.x.X.X 或 172.x.x.x，這使得在這些網段中使用 Docker 會導致路由錯誤，導致無法連線到正確的主機；因此，若碰到此狀況則需調整 Docker 的啟動網段設定。
+
+需注意兩個問題：
+
+1. [Daemon](https://docs.docker.com/config/daemon/)的相關 host 設定在 Docker Desktop for Windows 或 Mac 會無法正常運作
+2. 多數文獻提到 ```daemon.json``` 檔案在 ```C:\ProgramData\Docker\config```，但經測試後發現 Windows 10 的環境是依據用戶帳戶下的設定檔來運作 ```C:/Users/<Username>/.docker/```；日後是否會在改變還需參考 Docker 實際變更資訊或資料結構來實測
