@@ -10,7 +10,7 @@
 分散式運算有兩個面向的研究，一是基於分散式系統的主機架構，二是基於分散運算的運算單元軟體設計，若兩這不能同時存在並互相運用，則實際與單機運算並無差異。
 
 分散式系統相對的就是集中式系統，例如 IBM 大型主機 (Mainframe) 如 z/System、z/OS 系列，而其系統優點主要在於可擴展性佳、高容錯性、高冗余、可以承載高容量的業務量，但反之則有著因分散設計導致的相關缺點，可參考計算計科學家 Peter Deutsch 在九零年代就提出 Fallacies of distributed computing (分散式系統的謬論)：
-> [聊聊分散式系統](https://rickhw.github.io/2018/06/18/Architecture/Gossip-in-Distributed-Systems/)
+> [聊聊分散式系統](https://rickhw.github.io/2018/06/18/DistributedSystems/Gossip-in-Distributed-Systems/)
 
 + The network is reliable (網路是可靠的)
 + Latency is zero (網路沒有延遲)
@@ -21,7 +21,7 @@
 + Transport cost is zero (傳輸沒有成本)
 + The network is homogeneous (網路是同質的)
 
-![Why Distributed Systems Are Hard](https://rickhw.github.io/images/Architecture/Distributed-Systems/8-Fallacies-of-DS.jpeg)
+![Why Distributed Systems Are Hard](./img/8-Fallacies-of-DS.jpeg)
 
 在早期，能夠符合這些條件的多屬於封閉式的區域網路，而時至今日的雲端架構則上述多半都能部分成立，可即使不成立，上述謬論的內容也就是分散式系統的必需克服的障礙與問題，也可說是 Microservice 研究的主要議題。
 
