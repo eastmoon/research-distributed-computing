@@ -37,56 +37,27 @@
 
 考量上述問題，在雲端設計分散系統，相較於考量跨平軟體設計 ( 實際運算主機存在不確定性 )，更重視主機規劃與設計 ( 實際運算主機在可控制範圍 )；因此，在基於 IaC ( infrastructure as code ) 概念的設計下，則會利用下列套軟體來控制[虛擬主機](https://zh.wikipedia.org/wiki/%E8%99%9B%E6%93%AC%E6%A9%9F%E5%99%A8) ( Virtual Machine )。
 
-+ [Vagrant](https://www.vagrantup.com/)
-    - [VirtualBox](https://www.virtualbox.org/)
-+ [Docker](https://www.docker.com/)
++ [Vagrant](https://github.com/eastmoon/infra-vagrant)
++ [Docker](https://github.com/eastmoon/infra-docker)
 
 而虛擬主機除可用於模擬建置與部屬外，亦可實際作為跨平台的主機容器，而在雲端架構不論怎麼運用虛擬主機帶來的優點，最終都會存在主機群，而既有主機群就有遠程控制主機的架構需考慮：
 
-+ [Ansible](https://en.wikipedia.org/wiki/Ansible_(software))
-    - [現代 IT 人一定要知道的 Ansible 自動化組態技巧](https://chusiang.gitbooks.io/automate-with-ansible/content/)
-+ [Google cloud platform](https://cloud.google.com/)
-    - [在 Google Cloud Platform 上使用 GPU 和安裝深度學習相關套件](https://medium.com/@kstseng/%E5%9C%A8-google-cloud-platform-%E4%B8%8A%E4%BD%BF%E7%94%A8-gpu-%E5%92%8C%E5%AE%89%E8%A3%9D%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E7%9B%B8%E9%97%9C%E5%A5%97%E4%BB%B6-1b118e291015)
++ [Ansible](https://github.com/eastmoon/infra-ansible)
++ [Google cloud platform](https://github.com/eastmoon/infra-gcp)
 + [Amazon Web Services](https://aws.amazon.com/tw/?nc2=h_lg)
 + [Microsoft Azure](https://azure.microsoft.com/zh-tw/)
 
 Ansible 是一套遠程管理私有主機群的套件，而 GCP、AWS、Azure 則是不同的雲端系統，其下也各自有相似於 Ansible 的遠程管理工具。
 
-### Docker
+### 虛擬化議題
 
-+ 文件
-    - [基礎操作](./Docker/docs/readme.md)
-    - [Windows 安裝](./Docker/docs/docker-for-windows.md)
-    - [Linux 安裝](./Docker/docs/docker-for-linux.md)
-    - [技術議題](./Docker/docs/issue.md)
-+ 實務範例參考
-    - [Dockerfile](./Docker/Dockerfile)
-
-### Vagrant
-
-+ 文件
-    - [基礎操作](./Vagrant/docs/readme.md)
-    - [Windows 安裝](./Vagrant/docs/vagrant-for-windows.md)
-    - [技術議題](./Vagrant/docs/issue.md)
-+ 實務範例參考
-    - [Vagrantfile](./Vagrant/Vagrantfile)
-
-### 議題
-
-##### [啟動 VMWare、VirtualBox 注意事項](https://kb.vmware.com/s/article/2146361)
+#### [啟動 VMWare、VirtualBox 注意事項](https://kb.vmware.com/s/article/2146361)
 
 原則上 docker 不可與 VM 同時啟動，因次必須確保 Hyper-v 與 hypervisorlaunchtype 正式關閉
 
 1. Go to "Turn Windows features on or off" > Close Hyper-v
 2. Run "bcdedit /set hypervisorlaunchtype off" with administrator
 
+**於 VirtualBox 6.0+ 後，其軟體可透過 Hyper-v 執行，且 Docker 改以 WSL2 執行；因此該議題使用新版 VirtualBox 後已經消除**
+
 # Distributed computing architecture
-
-##### [Docker 無法連線至特定網段 (172.17.x.x)](https://blog.yowko.com/docker-172-17-ip/)
-
-具有一定規模公司或採用虛擬環境的架構，常用網段不外乎 192.x.X.X 或 172.x.x.x，這使得在這些網段中使用 Docker 會導致路由錯誤，導致無法連線到正確的主機；因此，若碰到此狀況則需調整 Docker 的啟動網段設定。
-
-需注意兩個問題：
-
-1. [Daemon](https://docs.docker.com/config/daemon/)的相關 host 設定在 Docker Desktop for Windows 或 Mac 會無法正常運作
-2. 多數文獻提到 ```daemon.json``` 檔案在 ```C:\ProgramData\Docker\config```，但經測試後發現 Windows 10 的環境是依據用戶帳戶下的設定檔來運作 ```C:/Users/<Username>/.docker/```；日後是否會在改變還需參考 Docker 實際變更資訊或資料結構來實測

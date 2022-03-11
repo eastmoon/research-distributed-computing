@@ -1,7 +1,0 @@
-# skip all
-/*
-
-# exculded file
-!.gitignore
-!readme.md
-!Vagrantfile
