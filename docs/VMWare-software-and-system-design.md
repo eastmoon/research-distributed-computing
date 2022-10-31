@@ -7,7 +7,9 @@
 + Workstation
 電腦用虛擬化軟體，主要用於開發人員於電腦模擬多個作業系統使用
 
-![vSphere 產品架構圖](https://docs.vmware.com/tw/VMware-vSphere/images/GUID-5EB66614-1EE8-4F39-8C8B-1E97EEE76791-high.png)
+<center>
+    <img width="75%" src="./img/GUID-5EB66614-1EE8-4F39-8C8B-1E97EEE76791-high.png" alt="vSphere 產品架構圖" />
+</center>
 
 + vSphere
 伺服器虛擬化軟體，主要用於伺服器虛擬化管理，其中包括以下服務
@@ -52,17 +54,21 @@ vSphere 的兩個核心元件是 ESXi 和 vCenter Server，因此在安裝上本
 
 ### 雙主機叢集
 
-![VMWare HA architecture](https://i0.wp.com/www.chriscolotti.us/wp-content/uploads/2013/11/vmw-dgrm-vsphere-087b-lg.jpg)
+<center>
+    <img width="75%" src="./img/vmw-dgrm-vsphere-087b-lg.jpg" alt="VMWare HA architecture" />
+</center>
 
 雙主機叢集是確保 VMWare 的高可用性 ( high availability、HA ) 啟動的最基本系統結構，這結構最基本會需要如下設備：
 
-+ 見證主機 ( 用於監控 VMWare 運作狀態 )
++ 見證主機一台 ( 用於 vSAN 機制 )
 + 可安裝 ESXi 的標準主機兩台
 + 高速資料存儲與傳輸用主機一台
 
 ### 私有雲
 
-![vCenter system architecture](https://www.instana.com/media/core-components-of-vsphere-are-esxi-and-vcenter-se.png)
+<center>
+    <img width="75%" src="./img/core-components-of-vsphere-are-esxi-and-vcenter-se.jpg" alt="vCenter system architecture" />
+</center>
 
 私有雲概念為由複數的 ESXi 主機來做到整個主機叢集的 HA、FT、DRS 功能的系統結構，在此架構下設備約莫如下：
 
