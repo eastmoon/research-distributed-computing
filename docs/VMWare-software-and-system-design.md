@@ -15,9 +15,11 @@
 伺服器虛擬化軟體，主要用於伺服器虛擬化管理，其中包括以下服務
 	- [ESXi](https://zh.wikipedia.org/zh-tw/VMware_ESXi)：企業用硬體虛擬化作業系統，此軟體並非安裝於作業系統內，而是本身即為作業系統
 	- [vCenter](https://en.wikipedia.org/wiki/VCenter)：一套中央管理工具，用於管理複數虛擬機與 ESXi 主機
-		- vMotion：讓虛擬機在不同 ESXi 主機間做到轉移，其技術 vLM ( vMotion Live migration ) 是一種將記憶體、緩存等資料以區塊方式逐一轉一至目標主機的新虛擬機區塊，僅在最後一刻短暫關閉主機，轉移最後一部分不停機無法轉移的部分，並當一切完成後開啟新虛擬機。
-		- svMotion ( Storage vMotion )：本質上與 vMotion 概念相同，差別在於會及時儲存虛擬機硬碟資料，當新虛擬機啟動時直接使用硬碟，做到最短時間轉移。
-	- [vSAN](https://docs.vmware.com/tw/VMware-vSphere/7.0/com.vmware.vsphere.vsan-planning.doc/GUID-18F531E9-FF08-49F5-9879-8E46583D4C70.html)：一套虛擬機資源管理系統，考量 svMotion 中的及時硬碟資料儲存，其 vSAN 就是將叢集中的所有 ESXi 主機硬碟資源進行儲存，以確保 vMotion、HA、DRS 等共用儲存區的 VMWare 運作。
+		+ vMotion：讓虛擬機在不同 ESXi 主機間做到轉移，其技術 vLM ( vMotion Live migration ) 是一種將記憶體、緩存等資料以區塊方式逐一轉一至目標主機的新虛擬機區塊，僅在最後一刻短暫關閉主機，轉移最後一部分不停機無法轉移的部分，並當一切完成後開啟新虛擬機。
+		+ svMotion ( Storage vMotion )：本質上與 vMotion 概念相同，差別在於會及時儲存虛擬機硬碟資料，當新虛擬機啟動時直接使用硬碟，做到最短時間轉移。
+	- [vSAN](https://docs.vmware.com/tw/VMware-vSphere/7.0/com.vmware.vsphere.vsan-planning.doc/GUID-18F531E9-FF08-49F5-9879-8E46583D4C70.html)：一套虛擬機資源管理系統，考量 svMotion 的分段硬碟資料儲存概念，vSAN 則是採用 RAID 概念，讓將叢集中的所有 ESXi 主機硬碟資源以設定的 RAID 容錯等級來分段且分散 ( 例如 RAID5 ) 儲存資料，以此確保 vMotion、HA、DRS 等共用儲存區的 VMWare 運作。
+		+ vSAN 將叢集中所有主機視為 RAID 的硬碟
+		+ vSAN 架構中存在見證主機，其用途相當於 RAID 管理主機
 
 ### 授權規範
 
@@ -53,6 +55,9 @@ ESXi 主機的安裝版本永遠以評估模式安裝。ESXi Embedded 由硬體�
 vSphere 的兩個核心元件是 ESXi 和 vCenter Server，因此在安裝上本身需確保可安裝 ESXi，其後差別在於單機與複數主機的狀況，若為複數則會額外詢問並登錄其他主機。
 
 ### 雙主機叢集
+
++ [vSAN 規劃和部署](https://docs.vmware.com/tw/VMware-vSphere/7.0/vsan-702-planning-deployment-guide.pdf)
++ [vSAN 監控和疑難排解](https://docs.vmware.com/tw/VMware-vSphere/7.0/vsan-702-monitoring-troubleshooting-guide.pdf)
 
 <center>
     <img width="75%" src="./img/vmw-dgrm-vsphere-087b-lg.jpg" alt="VMWare HA architecture" />
