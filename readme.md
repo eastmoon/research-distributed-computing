@@ -39,6 +39,7 @@
 
 + [Vagrant](https://github.com/eastmoon/infra-vagrant)
 + [Docker](https://github.com/eastmoon/infra-docker)
++ [Windows Subsystem for Linux](https://github.com/eastmoon/infra-wsl)
 
 而虛擬主機除可用於模擬建置與部屬外，亦可實際作為跨平台的主機容器，而在雲端架構不論怎麼運用虛擬主機帶來的優點，最終都會存在主機群，而既有主機群就有遠程控制主機的架構需考慮：
 
